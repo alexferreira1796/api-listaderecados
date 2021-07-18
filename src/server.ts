@@ -15,6 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 const userRoutes = new UsersRoutes().init();
 const messagesRoutes = new MessagesRoutes().init();
 
+app.get("/", (req: express.Request, res: express.Response) => {
+  res.send("Ok");
+})
+
 app.use(userRoutes, messagesRoutes);
 
 const port = process.env.PORT || 3000;
