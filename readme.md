@@ -1,5 +1,7 @@
 # API DESENVOLVIDA DURANTE O MÓDULO DE BACKEND - GROWDEV
 
+NodeJS e Postgres
+
 ```
 yarn typeorm migration:create -n CreateTableUsers
 yarn typeorm migration:create -n CreateTableMessages
