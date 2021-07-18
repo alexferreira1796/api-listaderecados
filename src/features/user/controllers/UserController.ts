@@ -82,7 +82,10 @@ class UserController {
         password,
         "repeat_password": repeatPass
       });
-      return res.json(result);
+      return res.status(200).json({
+        success: true,
+        data: result
+      });
     } catch (error) {
       return res.status(500).json({
         success: false,
@@ -97,7 +100,7 @@ class UserController {
 
     try {
       const result = await Users.find({ where: { name } });
-      return res.json({
+      return res.status(200).json({
         success: true,
         data: result
       });

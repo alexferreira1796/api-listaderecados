@@ -91,7 +91,7 @@ class MessagesController {
         description,
         details,
       });
-      return res.json({
+      return res.status(200).json({
         success: true,
         msg: "updated with success",
         data: result
