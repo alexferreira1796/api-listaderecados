@@ -69,7 +69,7 @@ class MessagesController {
 
     return res
       .status(200)
-      .json((result.affected as number) > 0 ? "Mensagem excluida" : "Não foi removido");
+      .json((result.affected as number) > 0 ? "Message deleted" : "Not remove");
   }
 
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Users } from '../../../core/data/database/entities/Users';
-import { IID, IUser } from '../interfaces/index';
+import { IID, IName, IUser } from '../interfaces/index';
 
 class UserController {
 
@@ -16,10 +16,10 @@ class UserController {
 
   // Saved user
   public async store(req: Request, res: Response) {
-    const { name, pass, repetPass }: IUser = req.body;
+    const { name, password, repeatPass }: IUser = req.body;
 
     try {
-      const users = await new Users(name, pass, repetPass).save();
+      const users = await new Users(name, password, repeatPass).save();
       return res.status(201).json(users);
     } catch (error) {
       return res.status(500).json(error);
@@ -53,19 +53,33 @@ class UserController {
   // Update User
   public async update(req: Request, res: Response) {
     const { id }: IID = req.params;
-    const { name, pass, repetPass }: IUser = req.body;
+    const { name, password, repeatPass }: IUser = req.body;
 
     try {
       const result = await Users.update(id, {
         name,
-        password: pass,
-        "repeat_password": repetPass
+        password,
+        "repeat_password": repeatPass
       });
       return res.json(result);
     } catch (error) {
       return res.status(500).json(error);
     }
   }
+
+  // Find for name
+  public async getName(req: Request, res: Response) {
+    const { name }: IName = req.params;
+
+    try {
+      const result = await Users.find({ where: { name } });
+      return res.json(result);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+
+  }
+
 }
 
 export default UserController;
