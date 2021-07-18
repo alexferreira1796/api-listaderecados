@@ -112,7 +112,13 @@ class MessagesController {
 
     return res
       .status(200)
-      .json((result.affected as number) > 0 ? "Message deleted" : "Not remove");
+      .json((result.affected as number) > 0 ? {
+        success: true,
+        data: "Message deleted"
+      } : {
+        success: false,
+        data: "Message deleted"
+      });
   }
 
 }
