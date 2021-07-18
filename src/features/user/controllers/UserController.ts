@@ -99,7 +99,6 @@ class UserController {
       const result = await Users.find({ where: { name } });
       return res.json({
         success: true,
-        msg: "User exists",
         data: result
       });
     } catch (error) {
