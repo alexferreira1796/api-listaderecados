@@ -1,3 +1,5 @@
+# API DESENVOLVIDA DURANTE O MÓDULO DE BACKEND - GROWDEV
+
 ```
 yarn typeorm migration:create -n CreateTableUsers
 yarn typeorm migration:create -n CreateTableMessages
@@ -11,4 +13,3 @@ yarn build
 yarn start
 
 ```
-const todolist = await TodoList.find({ where: { id_user: id_user } });
