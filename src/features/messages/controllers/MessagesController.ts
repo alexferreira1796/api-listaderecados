@@ -9,10 +9,17 @@ class MessagesController {
     try {
 
       const messages = await Messages.find();
-      return res.status(200).json(messages);
+      return res.status(200).json({
+        success: true,
+        msg: "all messages",
+        data: messages
+      });
 
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
     }
   }
 
@@ -24,41 +31,77 @@ class MessagesController {
     try {
       const messages = await new Messages(description, details, id).save();
 
-      return res.status(201).json(messages);
+      return res.status(201).json({
+        success: true,
+        msg: "saved with success",
+        data: messages
+      });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
     }
   }
 
   // Get One Message for User ID
   public async show(req: Request, res: Response) {
     const { id }: IID = req.params;
-
-    const message = await Messages.findOne(id, {
-      relations: ['user']
-    });
-    return res.json(message);
+    try {
+      const message = await Messages.findOne(id, {
+        relations: ['user']
+      });
+      return res.json({
+        success: true,
+        msg: "get message",
+        data: message
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
+    }
   }
 
   // Get All Messages for User ID
   public async getAll(req: Request, res: Response) {
     const { id }: IID = req.params;
-
-    const messages = await Messages.find({ where: { idUser: id } });
-    return res.json(messages);
+    try {
+      const messages = await Messages.find({ where: { idUser: id } });
+      return res.json({
+        success: true,
+        msg: "all messages",
+        data: messages
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
+    }
   }
 
   // Update Message for User ID
   public async update(req: Request, res: Response) {
     const { id }: IID = req.params;
     const { description, details }: IMessages = req.body;
-
-    const result = await Messages.update(id, {
-      description,
-      details,
-    });
-
-    return res.json(result);
+    try {
+      const result = await Messages.update(id, {
+        description,
+        details,
+      });
+      return res.json({
+        success: true,
+        msg: "updated with success",
+        data: result
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
+    }
   }
 
   // Delete Message for User

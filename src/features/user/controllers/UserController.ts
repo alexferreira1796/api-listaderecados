@@ -8,9 +8,17 @@ class UserController {
   public async index(req: Request, res: Response) {
     try {
       const users = await Users.find();
-      return res.status(200).json(users);
+      return res.status(200).json({
+        success: true,
+        msg: "list users success",
+        data: users
+      });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        msg: 'user not found',
+        data: error
+      });
     }
   }
 
@@ -22,7 +30,10 @@ class UserController {
       const users = await new Users(name, password, repeatPass).save();
       return res.status(201).json(users);
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
     }
   }
 
@@ -32,9 +43,16 @@ class UserController {
 
     try {
       const user = await Users.findOne(id);
-      return res.status(200).json(user);
+      return res.status(200).json({
+        success: true,
+        msg: "user success",
+        data: user
+      });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
     }
   }
 
@@ -46,7 +64,10 @@ class UserController {
       const result = await Users.delete(id);
       return res.status(200).json((result.affected as number) > 0 ? "User deleted" : "Not remove");
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
     }
   }
 
@@ -63,7 +84,10 @@ class UserController {
       });
       return res.json(result);
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
     }
   }
 
@@ -73,9 +97,16 @@ class UserController {
 
     try {
       const result = await Users.find({ where: { name } });
-      return res.json(result);
+      return res.json({
+        success: true,
+        msg: "User exists",
+        data: result
+      });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        success: false,
+        data: error
+      });
     }
 
   }
