@@ -13,8 +13,6 @@ async function validUser(req: Request, res: Response, next: NextFunction) {
     hasUser = await Users.find({ where: { name } });
   }
 
-  console.log(hasUser);
-
   if (!hasUser || hasUser.length <= 0) {
     return res.status(400).json({
       success: false,
